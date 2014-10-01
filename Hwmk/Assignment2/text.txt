@@ -1,0 +1,3 @@
+This file is used for Gaddis 8th ed ch 12 prob 15
+This file should have one sentence per line
+The program reads the file's contents and calculates the average number of words per sentence

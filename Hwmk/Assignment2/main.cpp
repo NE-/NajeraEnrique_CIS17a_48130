@@ -8,6 +8,8 @@
  
 //System Libraries
 #include <iostream>
+#include <fstream>
+#include <string>
 
 //Namespaces
 using namespace std; // iostream
@@ -15,14 +17,21 @@ using namespace std; // iostream
 //No Globals
 
 //Function Prototypes
-void Menu();
-int getN();
-void def(int);
-void problem1(); //Gaddis ch 10 prob  1
-void problem2(); //Gaddis ch 10 prob  2
-void problem3(); //Gaddis ch 10 prob  3
-void problem4(); //Gaddis ch 10 prob  6
-void problem5(); //Gaddis ch 10 prob 17
+void Menu();      // Main menu to choose probs
+int getN();       // Get user's choice
+void def(int);    // Exit the program
+
+void problem1();  // Gaddis ch 10 prob  1
+void problem2();  // Gaddis ch 10 prob  2
+void problem3();  // Gaddis ch 10 prob  3
+void problem4();  // Gaddis ch 10 prob  6
+void problem5();  // Gaddis ch 10 prob 17
+
+void problem6();  // Gaddis ch 12 prob  1
+void problem7();  // Gaddis ch 12 prob  2
+void problem8();  // Gaddis ch 12 prob  4
+void problem9();  // Gaddis ch 12 prob  5
+void problem10(); // Gaddis ch 12 prob 15
 
 //Problem functions
 //Problem 1
@@ -52,24 +61,31 @@ void txtToMorse(char *); // String to Morse code conversion
 int main(int argc, char *argv[])
 {
 	//Declare Variables
-	int inN;
+	int inN = 0; // For user's choice
 	
 	//While problems
 	do{
-		Menu();
-		inN=getN();
+		Menu();     // Call and display the main menu
+		inN=getN(); // Get user's choice
 		
 		switch(inN)
 		{
-			case 1:   problem1();break; //Gaddis ch 10 prob  1
-			case 2:   problem2();break; //Gaddis ch 10 prob  2
-			case 3:   problem3();break; //Gaddis ch 10 prob  3
-			case 4:   problem4();break; //Gaddis ch 10 prob  6
-			case 5:   problem5();break; //Gaddis ch 10 prob 17
+			case  1:   problem1(); break; // Gaddis ch 10 prob  1
+			case  2:   problem2(); break; // Gaddis ch 10 prob  2
+			case  3:   problem3(); break; // Gaddis ch 10 prob  3
+			case  4:   problem4(); break; // Gaddis ch 10 prob  6
+			case  5:   problem5(); break; // Gaddis ch 10 prob 17
+			
+			case  6:   problem6(); break; // Gaddis ch 12 prob  1
+			case  7:   problem7(); break; // Gaddis ch 12 prob  2
+			case  8:   problem8(); break; // Gaddis ch 12 prob  4
+			case  9:   problem9(); break; // Gaddis ch 12 prob  5
+			case 10:   problem10();break; // Gaddis ch 12 prob 15
 			default: def(inN);
 		}
-	}while(inN<6); //'6' to end switch inN
+	}while(inN<11); //'11' to end switch inN
 
+	//Exit the program
 	system("PAUSE");
 	return 0;
 }//End method main
@@ -78,19 +94,27 @@ int main(int argc, char *argv[])
 void Menu()
 {
 	//Output user options
-	cout<<"Type 1 for problem 1"<<endl; //Gaddis ch 10 prob  1
-	cout<<"Type 2 for problem 2"<<endl; //Gaddis ch 10 prob  2
-	cout<<"Type 3 for problem 3"<<endl; //Gaddis ch 10 prob  3
-	cout<<"Type 4 for problem 4"<<endl; //Gaddis ch 10 prob  6
-	cout<<"Type 5 for problem 5"<<endl; //Gaddis ch 10 prob 17
-	cout<<"Type 6 to exit \n"<<endl;
+	cout<<"-Chapter 10 Problems--"<<endl;
+	cout<<"Type  1 for problem  1"<<endl; // Gaddis ch 10 prob  1
+	cout<<"Type  2 for problem  2"<<endl; // Gaddis ch 10 prob  2
+	cout<<"Type  3 for problem  3"<<endl; // Gaddis ch 10 prob  3
+	cout<<"Type  4 for problem  4"<<endl; // Gaddis ch 10 prob  6
+	cout<<"Type  5 for problem  5"<<endl; // Gaddis ch 10 prob 17
+	cout<<endl;
+	cout<<"-Chapter 12 Problems--"<<endl;
+	cout<<"Type  6 for problem  6"<<endl; // Gaddis ch 12 prob  1
+	cout<<"Type  7 for problem  7"<<endl; // Gaddis ch 12 prob  2
+	cout<<"Type  8 for problem  8"<<endl; // Gaddis ch 12 prob  4
+	cout<<"Type  9 for problem  9"<<endl; // Gaddis ch 12 prob  5
+	cout<<"Type 10 for problem 10"<<endl; // Gaddis ch 12 prob 15
+	cout<<"Type 11 to exit \n"<<endl;
 }//End Procedure Menu
 
 //Start getN user input
 int getN()
 {
-	//Declare Variables
-	int inN;
+	//Declare Function Variables
+	int inN = 0;
 	
 	//Prompt for user input 
 	cin>>inN;
@@ -103,7 +127,7 @@ int getN()
 //Gaddis ch 10 prob 1
 void problem1()
 {
-	//Declare Variables
+	//Declare Function Variables
 	const int LENGTH = 50; // Max length of string 
 	char inString[LENGTH]; // Input string
 	
@@ -114,11 +138,14 @@ void problem1()
 	
 	//Send var inString to method cntChars
 	cout<<"The string has "<<cntChars(inString)<<" characters.\n";
+	
+	cout<<endl;
 }//End ch 10 prob 1
 
 //Gaddis ch 10 prob 2
 void problem2()
 {
+	//Declare Function Variables
 	const int LENGTH = 100; // total length of string
 	int ttlChar=0;          // total number of chars in string
 	char inString[LENGTH];  // carries input string
@@ -128,24 +155,27 @@ void problem2()
 	cin.ignore();
 	cin.getline(inString, LENGTH);
 	
-	ttlChar = cntChars_2(inString);
-	//sortString(inString,ttlChar);
-	showString(inString,ttlChar);
+	ttlChar = cntChars_2(inString); // Count characters in the string for display purposes
+	showString(inString,ttlChar);   // Show reversed string
+	
+	cout<<endl;
 }//End ch 10 prob 2
 
 //Gaddis ch 10 prob 3
 void problem3()
 {
+	//Declare Function Variables
 	const int SIZE = 100; // Array size
 	char usrWrds[SIZE];   // User words
-	int ttlWrds=0;        // Total words (for grammar sake)
+	int ttlWrds = 0;      // Total words (for grammar sake)
 	
 	//Prompt user for words
 	cout<<"Enter some words"<<endl;
 	cin.ignore();
 	cin.getline(usrWrds, SIZE);
 	
-	ttlWrds = cntWrds(usrWrds)+1;
+	ttlWrds = cntWrds(usrWrds)+1; //Count total words
+	
 	//Output result
 	//If entered 1 word, make 'word' singular
     if(ttlWrds == 1)
@@ -156,11 +186,14 @@ void problem3()
 	else{
 		cout<<"You entered "<<ttlWrds<<" words\n";
 	}
+	
+	cout<<endl;
 }//End ch 10 prob 3
 
 //Gaddis ch 10 prob 6
 void problem4()
 {
+	//Declare Function Variables
 	const int SIZE = 100; // Total array size
 	char inString[SIZE];  // User input string
 	char inMenu;          // For user menu input
@@ -173,8 +206,8 @@ void problem4()
 	
 	// While inN != 'E'
 	do{
-		menu();
-		inMenu = getIN();
+		menu();           // Call and display the menu
+		inMenu = getIN(); // Get user's choice
 		
 		switch(inMenu)
 		{
@@ -202,6 +235,7 @@ void problem4()
 //Gaddis ch 10 prob 17
 void problem5()
 {
+	//Declare Function Variables
 	const int LENGTH = 100; // Length of string
 	char inString[LENGTH];  // Input string
 	
@@ -213,8 +247,257 @@ void problem5()
 	//Convert inString value to Morse code
 	txtToMorse(inString);
 	
-	cout<<endl;
+	cout<<"\n"<<endl;
 }//End ch 10 prob 17
+
+//Gaddis ch 12 prob 1
+void problem6()
+{
+	//Declare Function Variables
+	string fileName;  // Holds the file name
+	char ch;          // Holds file characters
+	fstream file;     // Rename structure
+	int cntLines = 0; // Count the lines in file
+	
+	//Prompt for filename
+	cout<<"Enter the name of the file: ";
+	cin>>fileName;
+	
+	//Open the promted file
+	file.open(fileName.c_str(), ios::in );
+	
+	//If the file opened
+	if(file)
+	{
+		//Get char from the file
+		file.get(ch);
+		
+		//While can get char in file
+		while(file)
+		{
+			//Display character read
+			cout<<ch;
+			
+			//If end of line, count
+			if(ch=='\n')cntLines++;
+			
+			//If 10 lines, stop
+			if(cntLines == 10)
+			{
+				//Close file if lines > 10
+				file.close();
+			}
+			//Progress to next char
+			file.get(ch);
+		}
+		//Close the file if lines < 10
+		file.close();
+	}
+	//If file could not be opened
+	else
+		cout<<"Error opening "<<fileName<<endl;
+}//End ch 12 prob 1
+
+//Gaddis ch 12 prob 2
+void problem7()
+{
+	//Declare Function Variables
+	string fileName;  // Holds the file name
+	char ch;          // Holds file's characters
+	fstream file;     // Rename structure
+	int cntLines = 0; // Counts lines in file
+	
+	//Prompt for file
+	cout<<"Enter the name of the file: ";
+	cin>>fileName;
+	
+	file.open(fileName.c_str(), ios::in);
+	
+	//If file opened
+	if(file)
+	{
+		//Get file's characters
+		file.get(ch);
+		
+		//While can get char from file
+		while(file)
+		{
+			//Output character
+			cout<<ch;
+			
+			//If end of line, count
+			if(ch == '\n')
+			{
+				cntLines++;
+			}
+			//If lines = 24
+			if(cntLines == 24)
+			{
+				cntLines = 0;    // Recount
+				system("PAUSE"); // Pause
+			}
+			//Progress to next char
+			file.get(ch);
+		}
+		//Close the file
+		file.close();
+	}
+	else 
+		cout<<"Error opening "<<fileName<<endl;
+	
+	cout<<endl;
+}//End ch 12 prob 2
+
+//Gaddis ch 12 prob 4
+void problem8()
+{
+	//Declare Function Variables
+	string fileName; // Hold filename
+	char ch;         // Get file's chars
+	fstream file;    // Rename structure
+	int cntr = 0;    // Counter for lines
+	
+	//Prompt for file
+	cout<<"Enter the name of the file: ";
+	cin>>fileName;
+	
+	file.open(fileName.c_str(), ios::in);
+	
+	//If the file opened
+	if(file)
+	{
+		//Get char from the file
+		file.get(ch);
+		
+		//While can get char in file
+		while(file)
+		{
+			if(ch == '\n')cntr++; //If end of line, count
+			
+			//If 9 or more lines, start output
+			if(cntr>=9)
+			{
+				cout<<ch;
+				if(cntr == 20)file.close(); //If 20 lines, stop output and close
+			}
+			//Progress to next char
+			file.get(ch);
+		}
+		//Close the file if lines < 10
+		file.close();
+	}
+	//If file could not be opened
+	else
+		cout<<"Error opening "<<fileName<<endl;
+	cout<<endl;
+}//End ch 12 prob 4
+
+//Gaddis ch 12 prob 5
+void problem9()
+{
+	//Declare Function Variables
+	string fileName; // Holds the file's name
+	char ch;         // Holds file's chars
+	fstream file;    // Rename structure
+	int cntr = 1,    // Output line number
+	    lines = 1;   // Counts which line
+	
+	//Prompt for file
+	cout<<"Enter the name of the file: ";
+	cin>>fileName;
+	
+	file.open(fileName.c_str(), ios::in);
+	
+	//If file opened
+	if(file)
+	{
+		//Get the file's chars
+		file.get(ch);
+		
+		//While can get char in file
+		while(file)
+		{
+			//For line 1
+			if (cntr == 1)
+			{
+				cout<<cntr<<":";
+				cntr++;
+			}
+			
+			//output char in file
+			cout<<ch;
+			
+			//For all other lines
+			//If at end of line
+			if(ch == '\n')
+			{	
+				if (lines == 24)
+				{
+					lines = 0;       // Recount
+					system("PAUSE"); // Pause
+				}
+				
+				//Output line number and a colon
+				cout<<cntr<<":";
+				cntr++; //go to next line
+				lines++; //Count current line
+			}
+			//Advance to next char
+			file.get(ch);
+		}
+		file.close();
+	}
+	else 
+		cout<<"Error opening "<<fileName<<endl;
+	
+	cout<<endl;
+}//End ch 12 prob 5
+
+//Gaddis ch 12 prob 15
+void problem10()
+{
+	//Declare Function Variables
+	char ch;          // Holds the file's chars
+	fstream file;     // Rename structure
+	int cntSentn = 0, // Count number of sentences the file has
+	    cntWords = 0; // Count number of words the file has
+	
+	//Open file
+	file.open("text.txt", ios::in);
+	
+	//If file opened
+	if(file)
+	{
+		//Get file's chars
+		file.get(ch);
+		
+		//While can get chars
+		while(file)
+		{	
+			// If there is a space, word found
+			if(ch == ' ')
+			{
+				cntWords++; 
+			}
+			
+			if(ch == '\n')
+			{
+				cntSentn++; // If \n found, end of sentence
+				cntWords++; // Count end of sentence as a space for a word
+			}
+			//Advance to next char
+			file.get(ch);
+		}
+		file.close();
+	}
+	else 
+		cout<<"Error opening text.txt"<<endl;
+	
+	//Output result
+	cout<<"The file \'text.txt\' has an average of "<<cntWords/cntSentn
+	    <<" words per sentence.";
+	cout<<"\n"<<endl;
+}//End ch 12 prob 15
 
 //Start def exit program
 void def(int inN)
